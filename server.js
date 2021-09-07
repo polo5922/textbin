@@ -18,7 +18,13 @@ app.get("/", (req, res) => {
   code = `Welcome to TextBin!
   
   use the commands in the top right corner
-  to create a new file to share with others.`;
+  to create a new file to share with others.
+
+  ## SHORCUTS
+  you can do Ctrl + Shift + S to save
+  you can do Ctrl + Shift + D to dupicate
+  you can do Ctrl + Shift + N to start a new text
+  you can do Ctrl + Shift + R to get the raw value`;
   res.render("code-display", { code, language: "plaintext", page: "acceuil" });
 });
 
@@ -45,6 +51,18 @@ app.get("/:id/duplicate", async (req, res) => {
     const data = snapshot.data();
     console.log(data.value);
     res.render("new", { value: data.value });
+  } catch (e) {
+    res.redirect(`/${id}`);
+  }
+});
+
+app.get("/:id/raw", async (req, res) => {
+  const id = req.params.id;
+  try {
+    const snapshot = await db.collection("files").doc(id).get("value");
+    const data = snapshot.data();
+    console.log(data.value);
+    res.render("raw", { code: data.value });
   } catch (e) {
     res.redirect(`/${id}`);
   }

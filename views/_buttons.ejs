@@ -1,11 +1,19 @@
+<% if(locals.canSave) { %> 
+    <input type="text" id="canSave" style='display:none' value="<%= locals.canSave %>"> </input>
+    <% } %>
+    <% if(locals.id != null) { %> 
+    <input type="text" id="id" style='display:none' value="<%= locals.id %>"> </input>
+    <% } %>
+<script src="/shorcut.js"></script>
 <div class="buttons-wrapper">
   <a href="/" class="logo">TextBin</a>
   <div class="buttons">
     <a class="btn" href="/new">New</a>
     <% if(locals.canSave) { %>
-    <button class="btn" type="submit">Save</button>
+    <button class="btn" type="submit" id="save">Save</button>
     <% } %> <% if(locals.id != null) { %>
     <a class="btn" href="/<%= locals.id %>/duplicate">Duplicate</a>
+    <a class="btn" href="/<%=locals.id%>/raw">Raw</a>
     <% } %>
   </div>
 </div>
